@@ -7,6 +7,6 @@ setup(
     install_requires=[
         "nltk",
         "PyMuPDF",
-        "marvin",
+        "openai",
     ],
 )

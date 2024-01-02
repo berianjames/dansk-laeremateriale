@@ -1,5 +1,5 @@
 # Output files
-assets/sentences_*.txt
+assets/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
