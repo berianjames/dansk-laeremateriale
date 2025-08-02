@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DanskLaeremateriale"
+version = "0.1.0"
+description = "Danish learning material processing and translation tools"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["nltk", "PyMuPDF", "openai"]
+
+[project.urls]
+Repository = "https://github.com/berianjames/dansk-laeremateriale"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]

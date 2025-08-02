@@ -1,38 +1,43 @@
-# Project Title
+# Dansk Laeremateriale
 
-A brief description of what this project does and who it's for.
+Danish learning material processing and translation tools for processing the Danish citizenship test study material.
 
 ## Installation
 
-This project uses a conda environment for managing dependencies. To set up the environment and install the project, follow these steps:
+This project uses [uv](https://docs.astral.sh/uv/) for fast Python package and project management. To set up the project, follow these steps:
 
-1. Clone the repository:
+1. Install uv (if not already installed):
+    ```
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+
+2. Clone the repository:
     ```
     git clone https://github.com/berianjames/dansk-laeremateriale.git
     ```
-2. Navigate to the project directory:
+
+3. Navigate to the project directory:
     ```
     cd dansk-laeremateriale
     ```
-3. Create a new conda environment:
+
+4. Create a virtual environment and install dependencies:
     ```
-    conda create --name laeremateriale python=3.10
-    ```
-4. Activate the conda environment:
-    ```
-    conda activate laeremateriale
-    ```
-5. Install the project in editable mode:
-    ```
-    pip install -e .
+    uv sync
     ```
 
 ## Running the Project
 
 To run the project, ensure that the [source PDF](https://siri.dk/media/10915/laeremateriale-til-indfoedsretsproeven.pdf) is in the `assets` directory. Then, execute:
 
+1. Parse the PDF into sentences:
     ```
-    python run.py
+    uv run python parse.py
     ```
 
-This will generate an `output.txt` file in the project directory.
+2. Translate the sentences (requires OpenAI API key):
+    ```
+    uv run python translate.py
+    ```
+
+This will generate processed text files in the `assets` directory.
