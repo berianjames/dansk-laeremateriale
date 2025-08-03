@@ -64,13 +64,17 @@ def clean_text(text):
             continue
 
         # Check if this line starts a new structural element
+        # Strip tabs and spaces for pattern matching
+        clean_line = line.strip(" \t")
         is_structural = (
-            re.match(r"^\d+\.\d+", line)  # Section numbers
+            re.match(r"^\d+\.\d+", clean_line)  # Section numbers
             or re.match(r"^[A-ZÆØÅ\s]+$", line)  # All caps headers
             or re.match(r"^•", line)  # Bullet points
             or re.match(r"^Kapitel", line)  # Chapter headings
             or line.endswith(":")  # Lines ending with colon (often headers)
-            or (len(line) < 60 and line.isupper())  # Short uppercase lines
+            or (
+                len(line) < 80 and line.isupper() and len(line) > 5
+            )  # Short uppercase lines (section titles)
         )
 
         if is_structural:
@@ -118,8 +122,9 @@ def preserve_section_structure(text):
     section_pattern = r"\n(\d+)\.(\d+)\s*\n\s*(.+)\n"
     text = re.sub(section_pattern, r"\n## \1.\2 \3\n\n", text)
 
-    # Format subsection headings (X.Y.Z Title)
-    subsection_pattern = r"\n(\d+)\.(\d+)\.(\d+) \n(.+)\n"
+    # Format subsection headings (X.Y.Z Title) - handle the pattern where number and title are on separate lines
+    # Handle both spaces and tabs after section numbers
+    subsection_pattern = r"\n(\d+)\.(\d+)\.(\d+)[\s\t]*\n([A-ZÆØÅ][A-ZÆØÅ\s]+)\n"
     text = re.sub(subsection_pattern, r"\n### \1.\2.\3 \4\n\n", text)
 
     return text
