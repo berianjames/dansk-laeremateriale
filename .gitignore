@@ -1,5 +1,7 @@
 # Output files
 assets/*.txt
+assets/*.md
+assets/*.pdf
 *.apkg
 
 # Byte-compiled / optimized / DLL files
